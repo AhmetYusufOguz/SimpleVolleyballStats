@@ -1,0 +1,180 @@
+-- Team Table
+CREATE TABLE Team (
+    id TEXT PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    createdAt INTEGER NOT NULL
+);
+
+selectAllTeams:
+SELECT * FROM Team;
+
+selectTeamById:
+SELECT * FROM Team WHERE id = ?;
+
+insertTeam:
+INSERT INTO Team(id, name, createdAt)
+VALUES (?, ?, ?);
+
+deleteTeam:
+DELETE FROM Team WHERE id = ?;
+
+-- Player Table
+CREATE TABLE Player (
+    id TEXT PRIMARY KEY NOT NULL,
+    teamId TEXT NOT NULL,
+    number INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    position TEXT,
+    height INTEGER,
+    weight INTEGER,
+    notes TEXT,
+    createdAt INTEGER NOT NULL,
+    FOREIGN KEY (teamId) REFERENCES Team(id) ON DELETE CASCADE
+);
+
+selectAllPlayers:
+SELECT * FROM Player;
+
+selectPlayersByTeam:
+SELECT * FROM Player WHERE teamId = ? ORDER BY number;
+
+selectPlayerById:
+SELECT * FROM Player WHERE id = ?;
+
+insertPlayer:
+INSERT INTO Player(id, teamId, number, name, position, height, weight, notes, createdAt)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updatePlayer:
+UPDATE Player SET number = ?, name = ?, position = ?, height = ?, weight = ?, notes = ? WHERE id = ?;
+
+deletePlayer:
+DELETE FROM Player WHERE id = ?;
+
+countPlayersByTeam:
+SELECT COUNT(*) FROM Player WHERE teamId = ?;
+
+-- Match Table
+CREATE TABLE Match (
+    id TEXT PRIMARY KEY NOT NULL,
+    homeTeamId TEXT NOT NULL,
+    homeTeamName TEXT NOT NULL,
+    awayTeamId TEXT,
+    awayTeamName TEXT NOT NULL,
+    homeScore INTEGER NOT NULL DEFAULT 0,
+    awayScore INTEGER NOT NULL DEFAULT 0,
+    homeSetsWon INTEGER NOT NULL DEFAULT 0,
+    awaySetsWon INTEGER NOT NULL DEFAULT 0,
+    currentSet INTEGER NOT NULL DEFAULT 1,
+    status TEXT NOT NULL DEFAULT 'NOT_STARTED',
+    homeServing INTEGER NOT NULL DEFAULT 1,
+    ballState TEXT NOT NULL DEFAULT 'HOME_SERVE',
+    courtPositionsJson TEXT,
+    liberoId TEXT,
+    liberoOnCourt INTEGER NOT NULL DEFAULT 0,
+    liberoReplacedPlayerId TEXT,
+    startedAt INTEGER NOT NULL,
+    endedAt INTEGER,
+    notes TEXT,
+    FOREIGN KEY (homeTeamId) REFERENCES Team(id) ON DELETE CASCADE
+);
+
+selectAllMatches:
+SELECT * FROM Match ORDER BY startedAt DESC;
+
+selectMatchesByTeam:
+SELECT * FROM Match WHERE homeTeamId = ? OR awayTeamId = ? ORDER BY startedAt DESC;
+
+getMatchCountByTeam:
+SELECT COUNT(*) FROM Match WHERE homeTeamId = ? OR awayTeamId = ?;
+
+selectMatchById:
+SELECT * FROM Match WHERE id = ?;
+
+insertMatch:
+INSERT INTO Match(id, homeTeamId, homeTeamName, awayTeamId, awayTeamName, homeScore, awayScore, homeSetsWon, awaySetsWon, currentSet, status, homeServing, ballState, courtPositionsJson, liberoId, liberoOnCourt, liberoReplacedPlayerId, startedAt, endedAt, notes)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateMatch:
+UPDATE Match SET homeScore = ?, awayScore = ?, homeSetsWon = ?, awaySetsWon = ?, currentSet = ?, status = ?, homeServing = ?, ballState = ?, courtPositionsJson = ?, liberoId = ?, liberoOnCourt = ?, liberoReplacedPlayerId = ?, endedAt = ?, notes = ? WHERE id = ?;
+
+updateMatchState:
+UPDATE Match SET homeScore = ?, awayScore = ?, homeServing = ?, ballState = ?, courtPositionsJson = ?, liberoOnCourt = ?, liberoReplacedPlayerId = ? WHERE id = ?;
+
+-- Takım ismi ve ID güncelleme (DualTeam modunda SetOpponentName / SetAwayTeamInfo tarafından çağrılır)
+updateMatchTeamInfo:
+UPDATE Match SET awayTeamId = ?, awayTeamName = ?, homeTeamName = ? WHERE id = ?;
+
+deleteMatch:
+DELETE FROM Match WHERE id = ?;
+
+-- SetResult Table
+CREATE TABLE SetResult (
+    id TEXT PRIMARY KEY NOT NULL,
+    matchId TEXT NOT NULL,
+    setNumber INTEGER NOT NULL,
+    homeScore INTEGER NOT NULL,
+    awayScore INTEGER NOT NULL,
+    FOREIGN KEY (matchId) REFERENCES Match(id) ON DELETE CASCADE
+);
+
+selectSetsByMatch:
+SELECT * FROM SetResult WHERE matchId = ? ORDER BY setNumber;
+
+insertSetResult:
+INSERT INTO SetResult(id, matchId, setNumber, homeScore, awayScore)
+VALUES (?, ?, ?, ?, ?);
+
+deleteSetsByMatch:
+DELETE FROM SetResult WHERE matchId = ?;
+
+-- Action Table
+CREATE TABLE Action (
+    id TEXT PRIMARY KEY NOT NULL,
+    matchId TEXT NOT NULL,
+    playerId TEXT NOT NULL,
+    teamId TEXT NOT NULL,
+    setNumber INTEGER NOT NULL,
+    homeScore INTEGER NOT NULL,
+    awayScore INTEGER NOT NULL,
+    courtPosition TEXT NOT NULL,
+    actionType TEXT NOT NULL,
+    result TEXT NOT NULL,
+    timestamp INTEGER NOT NULL,
+    notes TEXT,
+    FOREIGN KEY (matchId) REFERENCES Match(id) ON DELETE CASCADE
+);
+
+selectActionsByMatch:
+SELECT * FROM Action WHERE matchId = ? ORDER BY timestamp;
+
+selectActionsByMatchAndSet:
+SELECT * FROM Action WHERE matchId = ? AND setNumber = ? ORDER BY timestamp;
+
+selectActionsByPlayer:
+SELECT * FROM Action WHERE playerId = ? ORDER BY timestamp DESC;
+
+insertAction:
+INSERT INTO Action(id, matchId, playerId, teamId, setNumber, homeScore, awayScore, courtPosition, actionType, result, timestamp, notes)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAction:
+DELETE FROM Action WHERE id = ?;
+
+deleteActionsByMatch:
+DELETE FROM Action WHERE matchId = ?;
+
+deleteLastAction:
+DELETE FROM Action WHERE id = (SELECT id FROM Action WHERE matchId = ? ORDER BY timestamp DESC LIMIT 1);
+
+countActionsByMatch:
+SELECT COUNT(*) FROM Action WHERE matchId = ?;
+
+selectActionStatsByPlayer:
+SELECT actionType, result, COUNT(*) AS count_ FROM Action WHERE playerId = ? GROUP BY actionType, result;
+
+selectActionStatsByTeam:
+SELECT actionType, result, COUNT(*) AS count_ FROM Action WHERE teamId = ? GROUP BY actionType, result;
+
+selectActionStatsByMatch:
+SELECT playerId, actionType, result, COUNT(*) AS count_ FROM Action WHERE matchId = ? GROUP BY playerId, actionType, result;

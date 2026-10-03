@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Backup kuralları: Veritabanı dosyaları Auto Backup'tan hariç tutulur.
+    Sebep: Eski şema yedeklerinin restore edilmesi "no such table" hatasına yol açar.
+    Uygulama kendi verilerini SQLDelight Schema.create() ile sıfırdan oluşturur.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Veritabanı dosyalarını cloud backup'tan hariç tut -->
+        <exclude domain="database" path="svs_database_v2.db"/>
+        <exclude domain="database" path="svs_database_v2.db-shm"/>
+        <exclude domain="database" path="svs_database_v2.db-wal"/>
+        <!-- Eski isimli DB varsa onu da dışla -->
+        <exclude domain="database" path="volleyball.db"/>
+        <exclude domain="database" path="volleyball.db-shm"/>
+        <exclude domain="database" path="volleyball.db-wal"/>
+    </cloud-backup>
+    <device-transfer>
+        <!-- Cihaz transferinde de veritabanını hariç tut -->
+        <exclude domain="database" path="svs_database_v2.db"/>
+        <exclude domain="database" path="svs_database_v2.db-shm"/>
+        <exclude domain="database" path="svs_database_v2.db-wal"/>
+    </device-transfer>
+</data-extraction-rules>

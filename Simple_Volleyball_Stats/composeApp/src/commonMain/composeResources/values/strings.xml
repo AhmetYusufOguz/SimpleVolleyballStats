@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">Simple Volleyball Stats</string>
+
+    <!-- Common -->
+    <string name="save">Kaydet</string>
+    <string name="cancel">İptal</string>
+    <string name="delete">Sil</string>
+    <string name="back">Geri</string>
+    <string name="settings">Ayarlar</string>
+    <string name="create">Oluştur</string>
+    <string name="add">Ekle</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Simple Volleyball Stats</string>
+    <string name="home_subtitle">Takımlarınızı yönetin</string>
+    <string name="home_empty_title">Henüz Takım Yok</string>
+    <string name="home_empty_message">Yeni bir takım oluşturmak için\n+ butonuna tıklayın</string>
+    <string name="home_new_team">Yeni Takım</string>
+    <string name="home_create_team">Yeni Takım Oluştur</string>
+    <string name="home_team_name">Takım Adı</string>
+    <string name="home_team_name_placeholder">Örn: Galatasaray</string>
+    <string name="home_player_count">%d oyuncu</string>
+    <string name="home_match_count">%d maç</string>
+
+    <!-- Team Detail Screen -->
+    <string name="team_detail_title">Takım Detayı</string>
+    <string name="team_detail_players">oyuncu</string>
+    <string name="team_detail_empty_title">Henüz Oyuncu Yok</string>
+    <string name="team_detail_empty_message">Maç başlatmak için en az\n6 oyuncu eklemelisiniz</string>
+    <string name="team_detail_add_player">Oyuncu Ekle</string>
+    <string name="team_detail_start_match">Maç Başlat</string>
+
+    <!-- Add Player Screen -->
+    <string name="add_player_title">Oyuncu Ekle</string>
+    <string name="add_player_number">Forma Numarası</string>
+    <string name="add_player_number_placeholder">1-99</string>
+    <string name="add_player_name">Oyuncu Adı</string>
+    <string name="add_player_name_placeholder">Örn: Ahmet Yılmaz</string>
+    <string name="add_player_position">Pozisyon (Opsiyonel)</string>
+
+    <!-- Player Positions -->
+    <string name="position_setter">Pasör</string>
+    <string name="position_opposite">Pasör Çaprazı</string>
+    <string name="position_outside_hitter">Köşe Smaçörü</string>
+    <string name="position_middle_blocker">Orta Oyuncu</string>
+    <string name="position_libero">Libero</string>
+
+    <!-- Match Screen -->
+    <string name="match_title">Maç</string>
+    <string name="match_coming_soon">Maç ekranı yakında!</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_language">Dil</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_coming_soon">Ayarlar ekranı yakında!</string>
+
+    <!-- Action Types -->
+    <string name="action_serve">Servis</string>
+    <string name="action_spike">Smaç</string>
+    <string name="action_block">Blok</string>
+    <string name="action_dig">Defans/Manşet</string>
+    <string name="action_set">Pas</string>
+    <string name="action_receive">Servis Karşılama</string>
+</resources>

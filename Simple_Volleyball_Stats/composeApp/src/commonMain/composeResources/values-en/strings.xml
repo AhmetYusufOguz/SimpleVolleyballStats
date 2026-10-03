@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">Simple Volleyball Stats</string>
+
+    <!-- Common -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+    <string name="create">Create</string>
+    <string name="add">Add</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Simple Volleyball Stats</string>
+    <string name="home_subtitle">Manage your teams</string>
+    <string name="home_empty_title">No Teams Yet</string>
+    <string name="home_empty_message">Tap the + button to\ncreate a new team</string>
+    <string name="home_new_team">New Team</string>
+    <string name="home_create_team">Create New Team</string>
+    <string name="home_team_name">Team Name</string>
+    <string name="home_team_name_placeholder">E.g., Lakers</string>
+    <string name="home_player_count">%d players</string>
+    <string name="home_match_count">%d matches</string>
+
+    <!-- Team Detail Screen -->
+    <string name="team_detail_title">Team Details</string>
+    <string name="team_detail_players">players</string>
+    <string name="team_detail_empty_title">No Players Yet</string>
+    <string name="team_detail_empty_message">Add at least 6 players\nto start a match</string>
+    <string name="team_detail_add_player">Add Player</string>
+    <string name="team_detail_start_match">Start Match</string>
+
+    <!-- Add Player Screen -->
+    <string name="add_player_title">Add Player</string>
+    <string name="add_player_number">Jersey Number</string>
+    <string name="add_player_number_placeholder">1-99</string>
+    <string name="add_player_name">Player Name</string>
+    <string name="add_player_name_placeholder">E.g., John Smith</string>
+    <string name="add_player_position">Position (Optional)</string>
+
+    <!-- Player Positions -->
+    <string name="position_setter">Setter</string>
+    <string name="position_opposite">Opposite</string>
+    <string name="position_outside_hitter">Outside Hitter</string>
+    <string name="position_middle_blocker">Middle Blocker</string>
+    <string name="position_libero">Libero</string>
+
+    <!-- Match Screen -->
+    <string name="match_title">Match</string>
+    <string name="match_coming_soon">Match screen coming soon!</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_coming_soon">Settings coming soon!</string>
+
+    <!-- Action Types -->
+    <string name="action_serve">Serve</string>
+    <string name="action_spike">Spike</string>
+    <string name="action_block">Block</string>
+    <string name="action_dig">Dig</string>
+    <string name="action_set">Set</string>
+    <string name="action_receive">Receive</string>
+</resources>
